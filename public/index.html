@@ -3,16 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <title>Shop</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1>Buy Products</h1>
   <div class="form-card">
     <form id="purchaseForm">
-      <label for="products">Select products:</label>
-      <select id="products">
-        <option value=""></option>
-      </select>
+      <label for="phone">Phone Number</label>
+      <input type="text" id="phone" />
+      <div>Balance: ¥<span id="balance">0</span></div>
+
+      <div id="productList"></div>
+
       <div>Total: ¥<span id="total">0</span></div>
       <button type="submit">Purchase</button>
     </form>
