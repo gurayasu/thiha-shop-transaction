@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Shop</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <h1>Buy Products</h1>
-  <div class="form-card">
-    <form id="purchaseForm">
-      <label for="phone">Phone Number</label>
-      <input type="text" id="phone" />
-      <div>Balance: ¥<span id="balance">0</span></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shop</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="header"></div>
+    <div class="form-card">
+      <h1 class="form-title">Buy Products</h1>
+      <form id="purchaseForm">
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" />
+        </div>
+        <div class="form-group">
+          Balance: ¥<span id="balance">0</span>
+        </div>
 
-      <div id="productList"></div>
+        <div id="productList"></div>
+        <button type="button" id="addProduct" class="add-btn">Add Product</button>
 
-      <div>Total: ¥<span id="total">0</span></div>
-      <button type="submit">Purchase</button>
-    </form>
-  </div>
-  <script src="main.js"></script>
-</body>
+        <div class="form-group total">
+          Total: ¥<span id="total">0</span>
+        </div>
+        <button type="submit">Purchase</button>
+      </form>
+    </div>
+    <script src="main.js"></script>
+  </body>
 </html>
