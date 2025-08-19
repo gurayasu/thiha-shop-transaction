@@ -13,9 +13,8 @@ async function loadProducts() {
 
 function updateTotal() {
   const select = document.getElementById('products');
-  const total = Array.from(select.selectedOptions).reduce((sum, option) => {
-    return sum + Number(option.dataset.price);
-  }, 0);
+  const option = select.value ? select.querySelector(`option[value="${select.value}"]`) : null;
+  const total = option ? Number(option.dataset.price) : 0;
   document.getElementById('total').textContent = String(total);
 }
 
@@ -24,14 +23,14 @@ document.getElementById('products').addEventListener('change', updateTotal);
 document.getElementById('purchaseForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const select = document.getElementById('products');
-  const items = Array.from(select.selectedOptions).map((o) => ({ productId: o.value, quantity: 1 }));
+  const items = [{ productId: select.value, quantity: 1 }];
   await fetch('/api/purchase', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ items }),
   });
   alert('Purchase recorded');
-  select.selectedIndex = -1;
+  select.value = '';
   updateTotal();
 });
 
