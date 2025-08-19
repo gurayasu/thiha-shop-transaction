@@ -5,11 +5,9 @@ A simple TypeScript/Express application that records product purchases using Goo
 ## Features
 
 - Fetch products from a Google Sheet and display them on a purchase page.
-- Buyers select multiple products; the total price updates dynamically.
-- Purchases are recorded in a `Purchases` sheet for later review.
-- Admin dashboard shows sales summary per product without sending emails.
-
-The code is structured to allow future expansion such as prepaid balances linked to phone numbers.
+- Buyers can enter a phone number, see their balance and select multiple products with quantities; the total price updates dynamically and purchases are blocked when the balance is insufficient.
+- Purchases are recorded in a `Purchases` sheet and user balances are deducted in the `Users` sheet.
+- Admin pages show sales summaries and provide a simple interface to charge user balances.
 
 ## Setup
 
@@ -25,4 +23,4 @@ The code is structured to allow future expansion such as prepaid balances linked
    npm start
    ```
 
-Visit `http://localhost:3000` for the purchase page and `http://localhost:3000/admin.html` for the sales dashboard.
+Visit `http://localhost:3000` for the purchase page, `http://localhost:3000/admin.html` for the sales dashboard, and `http://localhost:3000/charge.html` to charge user balances.

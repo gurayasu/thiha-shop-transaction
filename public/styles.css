@@ -25,19 +25,29 @@ label {
   color: #202124;
 }
 
-select {
+input {
   width: 100%;
   padding: 8px;
   font-size: 16px;
   border: 1px solid #dadce0;
   border-radius: 4px;
+  box-sizing: border-box;
   background: #fff;
 }
 
-select:focus {
+input:focus {
   outline: none;
   border-color: #1a73e8;
   box-shadow: 0 0 0 1px #1a73e8;
+}
+
+.qty {
+  width: 80px;
+  margin-left: 8px;
+}
+
+.over {
+  color: red;
 }
 
 button {
