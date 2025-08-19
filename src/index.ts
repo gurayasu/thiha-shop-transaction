@@ -1,3 +1,4 @@
+import "dotenv/config"; // これを一番上に追加
 import express from "express";
 import path from "path";
 import { google } from "googleapis";
