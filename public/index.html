@@ -3,20 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <title>Shop</title>
-  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h1>Buy Products</h1>
-  <div class="form-card">
-    <form id="purchaseForm">
-      <label for="products">Select products:</label>
-      <select id="products">
-        <option value=""></option>
-      </select>
-      <div>Total: ¥<span id="total">0</span></div>
-      <button type="submit">Purchase</button>
-    </form>
-  </div>
+  <form id="purchaseForm">
+    <label for="products">Select products:</label>
+    <select id="products" multiple></select>
+    <div>Total: ¥<span id="total">0</span></div>
+    <button type="submit">Purchase</button>
+  </form>
   <script src="main.js"></script>
 </body>
 </html>
