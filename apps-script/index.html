@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      function init() {
+        google.script.run.withSuccessHandler(renderProducts).getProducts();
+        document.getElementById('phone').addEventListener('change', onPhoneChange);
+        document.getElementById('purchaseForm').addEventListener('submit', onPurchase);
+        document.getElementById('chargeBtn').addEventListener('click', onCharge);
+      }
+
+      function renderProducts(products) {
+        const select = document.getElementById('product');
+        products.forEach(p => {
+          const option = document.createElement('option');
+          option.value = p.product_id;
+          option.textContent = `${p.name} - ${p.price}`;
+          option.dataset.price = p.price;
+          select.appendChild(option);
+        });
+        select.addEventListener('change', updateTotal);
+        document.getElementById('qty').addEventListener('input', updateTotal);
+        updateTotal();
+      }
+
+      function onPhoneChange() {
+        const phone = document.getElementById('phone').value;
+        google.script.run.withSuccessHandler(displayBalance).getBalance(phone);
+      }
+
+      function updateTotal() {
+        const select = document.getElementById('product');
+        const price = Number(select.selectedOptions[0]?.dataset.price || 0);
+        const qty = Number(document.getElementById('qty').value) || 0;
+        document.getElementById('total').textContent = price * qty;
+      }
+
+      function displayBalance(balance) {
+        document.getElementById('balance').textContent = balance;
+      }
+
+      function onPurchase(e) {
+        e.preventDefault();
+        const phone = document.getElementById('phone').value;
+        const product = document.getElementById('product').value;
+        const qty = Number(document.getElementById('qty').value);
+        google.script.run.withSuccessHandler(res => {
+          displayBalance(res.balance);
+          alert('Purchase complete');
+        }).purchase(phone, product, qty);
+      }
+
+      function onCharge() {
+        const phone = document.getElementById('phone').value;
+        const amount = Number(prompt('Charge amount?'));
+        if (!phone || !amount) return;
+        google.script.run.withSuccessHandler(res => {
+          displayBalance(res.balance);
+        }).charge(phone, amount);
+      }
+
+      document.addEventListener('DOMContentLoaded', init);
+    </script>
+  </head>
+  <body>
+    <form id="purchaseForm">
+      <label>Phone: <input type="text" id="phone" required></label><br>
+      <label>Product:
+        <select id="product"></select>
+      </label><br>
+      <label>Quantity: <input type="number" id="qty" min="1" value="1" required></label><br>
+      <div>Total: <span id="total">0</span></div>
+      <div>Balance: <span id="balance">0</span></div>
+      <button type="submit">Purchase</button>
+      <button type="button" id="chargeBtn">Charge</button>
+    </form>
+  </body>
+</html>
