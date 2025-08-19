@@ -4,23 +4,41 @@ let balance = 0;
 async function loadProducts() {
   const res = await fetch('/api/products');
   products = await res.json();
+  addProductSelect();
+}
+
+function addProductSelect() {
   const container = document.getElementById('productList');
+  const div = document.createElement('div');
+  div.className = 'form-group';
+  const select = document.createElement('select');
+  select.className = 'product-select';
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '選択';
+  select.appendChild(placeholder);
   products.forEach((p) => {
-    const div = document.createElement('div');
-    div.innerHTML = `<label>${p.name} - ¥${p.price} <input type="number" min="0" value="0" data-id="${p.id}" data-price="${p.price}" class="qty"></label>`;
-    container.appendChild(div);
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.textContent = `${p.name} ¥${p.price}`;
+    select.appendChild(opt);
   });
+  select.addEventListener('change', updateTotal);
+  div.appendChild(select);
+  container.appendChild(div);
 }
 
 function updateTotal() {
   let total = 0;
-  document.querySelectorAll('.qty').forEach((input) => {
-    const qty = Number(input.value);
-    const price = Number(input.dataset.price);
-    total += qty * price;
+  document.querySelectorAll('.product-select').forEach((sel) => {
+    const id = sel.value;
+    if (id) {
+      const product = products.find((p) => p.id === id);
+      if (product) total += product.price;
+    }
   });
-  document.getElementById('total').textContent = String(total);
   const totalEl = document.getElementById('total');
+  totalEl.textContent = String(total);
   if (balance < total) {
     totalEl.classList.add('over');
   } else {
@@ -38,20 +56,20 @@ async function loadBalance() {
   updateTotal();
 }
 
-document.getElementById('productList').addEventListener('input', updateTotal);
-
+document.getElementById('addProduct').addEventListener('click', addProductSelect);
 document.getElementById('phone').addEventListener('blur', loadBalance);
 
 document.getElementById('purchaseForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const phone = document.getElementById('phone').value.trim();
-  const items = [];
-  document.querySelectorAll('.qty').forEach((input) => {
-    const qty = Number(input.value);
-    if (qty > 0) {
-      items.push({ productId: input.dataset.id, quantity: qty });
+  const itemsMap = new Map();
+  document.querySelectorAll('.product-select').forEach((sel) => {
+    const id = sel.value;
+    if (id) {
+      itemsMap.set(id, (itemsMap.get(id) || 0) + 1);
     }
   });
+  const items = Array.from(itemsMap.entries()).map(([productId, quantity]) => ({ productId, quantity }));
   let total = 0;
   items.forEach((item) => {
     const product = products.find((p) => p.id === item.productId);
@@ -70,7 +88,8 @@ document.getElementById('purchaseForm').addEventListener('submit', async (e) => 
     const data = await res.json();
     balance = data.balance;
     document.getElementById('balance').textContent = String(balance);
-    document.querySelectorAll('.qty').forEach((input) => (input.value = '0'));
+    document.getElementById('productList').innerHTML = '';
+    addProductSelect();
     updateTotal();
     alert('Purchase recorded');
   } else {

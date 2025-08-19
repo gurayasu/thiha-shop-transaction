@@ -1,11 +1,12 @@
 body {
   font-family: Arial, sans-serif;
   background: #f1f3f4;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 40px;
   margin: 0;
+}
+
+.header {
+  background: #673ab7;
+  height: 8px;
 }
 
 .form-card {
@@ -15,17 +16,26 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 480px;
+  margin: 16px auto;
+}
+
+.form-title {
+  margin-top: 0;
+}
+
+.form-group {
+  margin-top: 16px;
 }
 
 label {
   display: block;
-  margin-top: 16px;
   margin-bottom: 4px;
   font-size: 16px;
   color: #202124;
 }
 
-input {
+input,
+select {
   width: 100%;
   padding: 8px;
   font-size: 16px;
@@ -35,22 +45,37 @@ input {
   background: #fff;
 }
 
-input:focus {
+input:focus,
+select:focus {
   outline: none;
   border-color: #1a73e8;
   box-shadow: 0 0 0 1px #1a73e8;
 }
 
-.qty {
-  width: 80px;
-  margin-left: 8px;
+.add-btn {
+  margin-top: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: #fff;
+  color: #1a73e8;
+  border: 1px solid #1a73e8;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #e8f0fe;
 }
 
 .over {
   color: red;
 }
 
-button {
+.total {
+  font-weight: bold;
+}
+
+button[type='submit'] {
   margin-top: 24px;
   padding: 10px 16px;
   font-size: 16px;
@@ -62,6 +87,7 @@ button {
   transition: background 0.2s ease-in-out;
 }
 
-button:hover {
+button[type='submit']:hover {
   background: #1669c1;
 }
+
