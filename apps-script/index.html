@@ -2,6 +2,18 @@
 <html>
   <head>
     <base target="_top">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1e90ff'
+            }
+          }
+        }
+      }
+    </script>
     <script>
       function init() {
         google.script.run.withSuccessHandler(renderProducts).getProducts();
