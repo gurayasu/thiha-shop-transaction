@@ -3,19 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <title>Charge Balance</title>
-  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>Charge Balance</h1>
-  <div class="form-card">
-    <form id="chargeForm">
-      <label for="phone">Phone Number</label>
-      <input type="text" id="phone" />
-      <label for="amount">Amount</label>
-      <input type="number" id="amount" />
-      <button type="submit">Charge</button>
-    </form>
-  </div>
+<body class="bg-gray-100">
+  <h1 class="text-2xl font-bold text-center mt-4">Charge Balance</h1>
+  <form id="chargeForm" class="max-w-md mx-auto p-4 space-y-4 bg-white rounded shadow">
+    <div>
+      <label for="phone" class="block text-sm font-medium">Phone Number</label>
+      <input type="text" id="phone" class="border rounded px-2 py-1 w-full" />
+    </div>
+    <div>
+      <label for="amount" class="block text-sm font-medium">Amount</label>
+      <input type="number" id="amount" class="border rounded px-2 py-1 w-full" />
+    </div>
+    <button type="submit" class="bg-blue-600 text-white rounded px-4 py-2">Charge</button>
+  </form>
   <script src="charge.js"></script>
 </body>
 </html>

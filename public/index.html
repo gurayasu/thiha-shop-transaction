@@ -4,30 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Shop</title>
-    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div class="header"></div>
-    <div class="form-card">
-      <h1 class="form-title">Buy Products</h1>
-      <form id="purchaseForm">
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input type="tel" id="phone" />
-        </div>
-        <div class="form-group">
-          Balance: ¥<span id="balance">0</span>
-        </div>
-
-        <div id="productList"></div>
-        <button type="button" id="addProduct" class="add-btn">Add Product</button>
-
-        <div class="form-group total">
-          Total: ¥<span id="total">0</span>
-        </div>
-        <button type="submit">Purchase</button>
-      </form>
-    </div>
+  <body class="bg-gray-100">
+    <h1 class="text-2xl font-bold text-center mt-4">Buy Products</h1>
+    <form id="purchaseForm" class="max-w-md mx-auto p-4 space-y-4 bg-white rounded shadow">
+      <div>
+        <label for="phone" class="block text-sm font-medium">Phone Number</label>
+        <input type="tel" id="phone" class="border rounded px-2 py-1 w-full" />
+      </div>
+      <div>
+        Balance: ¥<span id="balance">0</span>
+      </div>
+      <div id="productList" class="space-y-2"></div>
+      <button type="button" id="addProduct" class="border rounded px-2 py-1">Add Product</button>
+      <div class="font-bold">
+        Total: ¥<span id="total">0</span>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white rounded px-4 py-2">Purchase</button>
+    </form>
     <script src="main.js"></script>
   </body>
 </html>
