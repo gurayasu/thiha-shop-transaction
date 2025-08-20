@@ -51,4 +51,11 @@ The `apps-script` folder provides a lightweight implementation that runs entirel
    clasp create --type sheets        # or `clasp clone <SCRIPT_ID>` for existing projects
    clasp push                        # push local files to Apps Script
    clasp deploy                      # update the web app
+
+   # After second time
+   clasp deployments
+      └─ DeploymentId: AKfycbyX... (Head)
+      Version: 1
+      Description: My first deployment
+   clasp deploy -i <YOUR_DEPLOYMENT_ID>
    ```
