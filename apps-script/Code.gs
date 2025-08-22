@@ -81,6 +81,14 @@ function charge(phoneNumber, amount) {
   return { balance: Number(amount) };
 }
 
-function doGet() {
-  return HtmlService.createHtmlOutputFromFile("index");
+function doGet(e) {
+  var path = (e && e.parameter && e.parameter.path) || "";
+  if (path === "styles.css") {
+    var css = HtmlService.createHtmlOutputFromFile("styles").getContent(); // apps-script/styles.html を読む
+    // もし apps-script に "styles.css" を置くなら DriveApp で読む実装に変えてOK
+    return ContentService.createTextOutput(css).setMimeType(
+      ContentService.MimeType.CSS
+    );
+  }
+  return HtmlService.createHtmlOutputFromFile("index"); // include不要ならテンプレでもOK
 }
