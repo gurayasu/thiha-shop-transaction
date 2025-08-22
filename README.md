@@ -1,6 +1,6 @@
 # Thiha Shop Transaction
 
-A simple TypeScript/Express application that records product purchases using Google Sheets as a datastore.
+A simple Next.js application that records product purchases using Google Sheets as a datastore.
 
 ## Features
 
@@ -15,15 +15,17 @@ A simple TypeScript/Express application that records product purchases using Goo
    ```sh
    npm install
    ```
-2. Set the `SPREADSHEET_ID` environment variable to the Google Sheet ID.
-3. Ensure `GOOGLE_APPLICATION_CREDENTIALS` points to a service account key with spreadsheet access.
-4. Build and run:
+2. Create a Google service account and share the target sheet with it.
+3. Set the following environment variables (e.g. in Vercel or `.env.local`):
+   - `SHEET_ID` – the spreadsheet ID
+   - `GOOGLE_CLIENT_EMAIL` – service account email
+   - `GOOGLE_PRIVATE_KEY` – private key (replace newlines with `\n` if set inline)
+4. Run locally:
    ```sh
-   npm run build
-   npm start
+   npm run dev
    ```
 
-Visit `http://localhost:3000` for the purchase page, `http://localhost:3000/admin.html` for the sales dashboard, and `http://localhost:3000/charge.html` to charge user balances.
+Visit `http://localhost:3000` for the purchase page, `/admin` for the sales dashboard, and `/charge` to charge user balances.
 
 ## Apps Script + Google Sheets Setup
 
