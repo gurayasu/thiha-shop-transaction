@@ -15,9 +15,13 @@ A simple TypeScript/Express application that records product purchases using Goo
    ```sh
    npm install
    ```
-2. Set the `SPREADSHEET_ID` environment variable to the Google Sheet ID.
-3. Ensure `GOOGLE_APPLICATION_CREDENTIALS` points to a service account key with spreadsheet access.
-4. Build and run:
+2. Set the following environment variables:
+   - `SHEET_ID` – the ID of the Google Sheet.
+   - `GOOGLE_CLIENT_EMAIL` – your service account email.
+   - `GOOGLE_PRIVATE_KEY` – the service account private key, with `\n` replaced by actual newline characters.
+
+   In Vercel, configure them in the dashboard or via `vercel env`.
+3. Build and run:
    ```sh
    npm run build
    npm start
