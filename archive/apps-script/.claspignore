@@ -1,0 +1,4 @@
+# [LEGACY] Archived Google Apps Script config for reference only.
+node_modules/**
+src/**
+public/**

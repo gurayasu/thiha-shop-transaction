@@ -28,9 +28,9 @@ A simple Next.js application that records product purchases using Google Sheets 
 
 Visit `http://localhost:3000` for the purchase page, `/admin` for the sales dashboard, and `/charge` to charge user balances.
 
-## Apps Script + Google Sheets Setup
+## Legacy Apps Script + Google Sheets Setup
 
-The `apps-script` folder provides a lightweight implementation that runs entirely on Google Sheets and Apps Script.
+The original Apps Script implementation has been archived under `archive/apps-script` and is kept for reference only. It runs entirely on Google Sheets and Apps Script.
 
 1. **Prepare the spreadsheet** with the following sheets and headers:
    - `Products`: `product_id`, `name`, `price`
@@ -40,7 +40,7 @@ The `apps-script` folder provides a lightweight implementation that runs entirel
 2. **Create the Apps Script project** from the spreadsheet via `Extensions → Apps Script` and add two files:
    - `Code.gs` – server‑side functions (`getProducts`, `getBalance`, `purchase`, `charge`, and `doGet`).
    - `index.html` – client‑side page that calls these functions with `google.script.run`.
-   Copy the contents of these files from this repository's `apps-script` directory.
+   Copy the contents of these files from this repository's `archive/apps-script` directory.
 
 3. **Deploy as a web app**:
    - In the Apps Script editor select `Deploy → New deployment`.
