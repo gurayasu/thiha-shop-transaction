@@ -15,12 +15,13 @@ A simple Next.js application that records product purchases using Google Sheets 
    ```sh
    npm install
    ```
-2. Create a Google service account and share the target sheet with it.
-3. Set the following environment variables (e.g. in Vercel or `.env.local`):
-   - `SHEET_ID` – the spreadsheet ID
-   - `GOOGLE_CLIENT_EMAIL` – service account email
-   - `GOOGLE_PRIVATE_KEY` – private key (replace newlines with `\n` if set inline)
-4. Run locally:
+2. Set the following environment variables:
+   - `SHEET_ID` – the ID of the Google Sheet.
+   - `GOOGLE_CLIENT_EMAIL` – your service account email.
+   - `GOOGLE_PRIVATE_KEY` – the service account private key, with `\n` replaced by actual newline characters.
+
+   In Vercel, configure them in the dashboard or via `vercel env`.
+3. Build and run:
    ```sh
    npm run dev
    ```
