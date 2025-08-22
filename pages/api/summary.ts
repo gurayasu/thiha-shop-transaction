@@ -7,7 +7,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       getTransactions(req.query.start as string, req.query.end as string),
       getProductsSheet()
     ]);
-    const pmap = new Map(prods.map(p => [String(p.product_id), p]));
+    const pmap = new Map<string, any>(prods.map((p: any) => [String(p.product_id), p]));
 
     let totalAmount = 0, totalQty = 0;
     const byDay = new Map<string, number>();
