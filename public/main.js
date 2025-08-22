@@ -10,8 +10,9 @@ async function loadProducts() {
 function addProductSelect() {
   const container = document.getElementById('productList');
   const div = document.createElement('div');
+  div.className = 'form-group';
   const select = document.createElement('select');
-  select.className = 'product-select border rounded px-2 py-1 w-full';
+  select.className = 'product-select';
   const placeholder = document.createElement('option');
   placeholder.value = '';
   placeholder.textContent = '選択';
