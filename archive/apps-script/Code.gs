@@ -1,3 +1,4 @@
+// [LEGACY] Archived Google Apps Script for reference only.
 const ss = SpreadsheetApp.getActive();
 
 function getProducts() {
