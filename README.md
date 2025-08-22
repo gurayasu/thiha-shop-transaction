@@ -1,6 +1,6 @@
 # Thiha Shop Transaction
 
-A simple TypeScript/Express application that records product purchases using Google Sheets as a datastore.
+A simple Next.js application that records product purchases using Google Sheets as a datastore.
 
 ## Features
 
@@ -23,11 +23,10 @@ A simple TypeScript/Express application that records product purchases using Goo
    In Vercel, configure them in the dashboard or via `vercel env`.
 3. Build and run:
    ```sh
-   npm run build
-   npm start
+   npm run dev
    ```
 
-Visit `http://localhost:3000` for the purchase page, `http://localhost:3000/admin.html` for the sales dashboard, and `http://localhost:3000/charge.html` to charge user balances.
+Visit `http://localhost:3000` for the purchase page, `/admin` for the sales dashboard, and `/charge` to charge user balances.
 
 ## Apps Script + Google Sheets Setup
 
