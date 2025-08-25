@@ -33,6 +33,49 @@ export async function getProductsSheet() {
     }));
 }
 
+export async function createProduct({ product_id, name, price }: { product_id: string; name: string; price: number }) {
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SHEET_ID,
+    range: `${N.products}!A:C`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[product_id, name, price]] }
+  });
+}
+
+export async function updateProduct({ product_id, name, price }: { product_id: string; name: string; price: number }) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.products}!A2:C`
+  });
+  const rows = res.data.values || [];
+  const idx = rows.findIndex(r => String(r[0]) === String(product_id));
+  if (idx < 0) return;
+  const rowNumber = idx + 2;
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SHEET_ID,
+    range: `${N.products}!B${rowNumber}:C${rowNumber}`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[name, price]] }
+  });
+}
+
+export async function deleteProduct(product_id: string) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.products}!A2:C`
+  });
+  const rows = res.data.values || [];
+  const idx = rows.findIndex(r => String(r[0]) === String(product_id));
+  if (idx < 0) return;
+  const rowNumber = idx + 2;
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SHEET_ID,
+    range: `${N.products}!A${rowNumber}:C${rowNumber}`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [['', '', '']] }
+  });
+}
+
 export async function getBalance(phone: string) {
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: SHEET_ID,
