@@ -9,6 +9,18 @@ A simple Next.js application that uses API routes on Vercel with Google Sheets a
 - Purchases are recorded in the `Transactions` sheet and user balances are stored in the `Balances` sheet.
 - Admin pages show sales summaries and provide a simple interface to charge user balances.
 
+## Database (Google Sheets)
+
+The app reads and writes to a single spreadsheet identified by the `SHEET_ID` environment variable. Each sheet has a fixed schema:
+
+- **Products** — `product_id`, `name`, `price`
+- **Balances** — `phone`, `balance`
+- **Transactions** — `timestamp`, `type`, `phone`, `product_id`, `qty`, `price`, `total`, `note`
+- **ChargeRequests** — `id`, `phone`, `amount`, `approved`, `requested_at`, `approved_at`
+- **AdminSubscriptions** — `adminId`, `subscription`
+
+If the schema changes or new sheets are added, update this section of the README accordingly.
+
 ## Setup
 
 1. Clone and install:
