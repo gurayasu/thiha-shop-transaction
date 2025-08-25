@@ -14,7 +14,8 @@ const SHEET_ID = process.env.SHEET_ID || '';
 const N = {
   products: 'Products',
   balances: 'Balances',
-  tx: 'Transactions'
+  tx: 'Transactions',
+  chargeRequests: 'ChargeRequests'
 };
 
 export async function getProductsSheet() {
@@ -98,4 +99,65 @@ export async function getTransactions(startISO?: string, endISO?: string) {
     }))
     .filter((t: any) => t.timestamp >= start && t.timestamp <= end)
     .sort((a: any, b: any) => b.timestamp.getTime() - a.timestamp.getTime());
+}
+
+export async function createChargeRequest(phone: string, amount: number) {
+  const id = Date.now().toString(36);
+  const ts = new Date().toISOString();
+  await sheets.spreadsheets.values.append({
+    spreadsheetId: SHEET_ID,
+    range: `${N.chargeRequests}!A:F`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[id, phone, amount, false, ts, '']] }
+  });
+  return id;
+}
+
+export async function listChargeRequests(status: 'pending' | 'approved') {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.chargeRequests}!A2:F`
+  });
+  const rows = res.data.values || [];
+  return rows
+    .map(r => ({
+      id: r[0],
+      phone: r[1],
+      amount: Number(r[2] || 0),
+      approved: r[3] === true || r[3] === 'TRUE' || r[3] === 'true',
+      requested_at: r[4] || '',
+      approved_at: r[5] || ''
+    }))
+    .filter(r => (status === 'approved' ? r.approved : !r.approved));
+}
+
+export async function approveChargeRequest(id: string) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.chargeRequests}!A2:F`
+  });
+  const rows = res.data.values || [];
+  const idx = rows.findIndex(r => String(r[0]) === String(id));
+  if (idx < 0) return;
+  const row = rows[idx];
+  const rowNumber = idx + 2;
+  const phone = row[1];
+  const amount = Number(row[2] || 0);
+  const ts = new Date().toISOString();
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SHEET_ID,
+    range: `${N.chargeRequests}!D${rowNumber}`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[true]] }
+  });
+  await sheets.spreadsheets.values.update({
+    spreadsheetId: SHEET_ID,
+    range: `${N.chargeRequests}!F${rowNumber}`,
+    valueInputOption: 'RAW',
+    requestBody: { values: [[ts]] }
+  });
+  const bal = await getBalance(phone);
+  const nb = bal + amount;
+  await setBalance(phone, nb);
+  await appendTx({ type: 'CHARGE', phone, total: amount, note: `ChargeRequest ${id}` });
 }
