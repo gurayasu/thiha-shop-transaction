@@ -2,10 +2,10 @@ const config = {
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
-    './public/index.html'
+    './public/index.html',
   ],
   theme: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/forms')],
 };
 
 export default config;
