@@ -28,3 +28,8 @@ declare module 'next/head' {
   const Head: any;
   export default Head;
 }
+
+declare module 'web-push' {
+  const wp: any;
+  export default wp;
+}
