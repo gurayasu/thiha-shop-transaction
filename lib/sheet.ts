@@ -15,7 +15,8 @@ const N = {
   products: 'Products',
   balances: 'Balances',
   tx: 'Transactions',
-  chargeRequests: 'ChargeRequests'
+  chargeRequests: 'ChargeRequests',
+  adminSubscriptions: 'AdminSubscriptions'
 };
 
 export async function getProductsSheet() {
@@ -203,4 +204,41 @@ export async function approveChargeRequest(id: string) {
   const nb = bal + amount;
   await setBalance(phone, nb);
   await appendTx({ type: 'CHARGE', phone, total: amount, note: `ChargeRequest ${id}` });
+}
+
+export async function saveAdminSubscription(adminId: string, subscription: any) {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.adminSubscriptions}!A2:B`
+  });
+  const rows = res.data.values || [];
+  const idx = rows.findIndex(r => String(r[0]) === String(adminId));
+  const json = JSON.stringify(subscription);
+  if (idx >= 0) {
+    const rowNumber = idx + 2;
+    await sheets.spreadsheets.values.update({
+      spreadsheetId: SHEET_ID,
+      range: `${N.adminSubscriptions}!B${rowNumber}`,
+      valueInputOption: 'RAW',
+      requestBody: { values: [[json]] }
+    });
+  } else {
+    await sheets.spreadsheets.values.append({
+      spreadsheetId: SHEET_ID,
+      range: `${N.adminSubscriptions}!A:B`,
+      valueInputOption: 'RAW',
+      requestBody: { values: [[adminId, json]] }
+    });
+  }
+}
+
+export async function listAdminSubscriptions() {
+  const res = await sheets.spreadsheets.values.get({
+    spreadsheetId: SHEET_ID,
+    range: `${N.adminSubscriptions}!A2:B`
+  });
+  const rows = res.data.values || [];
+  return rows
+    .filter(r => r[0] && r[1])
+    .map(r => ({ adminId: r[0], subscription: JSON.parse(r[1]) }));
 }
