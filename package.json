@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "tailwindcss -i ./globals.css -o ./public/styles.css --watch & next dev",
+    "build": "tailwindcss -i ./globals.css -o ./public/styles.css && next build",
     "test": "tsc --noEmit"
   },
   "dependencies": {
