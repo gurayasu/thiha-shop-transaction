@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import AdminLayout from '../../components/AdminLayout';
 
 interface Request {
   id: string;
@@ -29,30 +29,36 @@ export default function RequestsPage() {
   };
 
   return (
-    <>
-      <Head><title>Charge Requests</title></Head>
-      <h1>Charge Requests</h1>
-      <div>
-        <button disabled={tab === 'pending'} onClick={() => setTab('pending')}>pending</button>
-        <button disabled={tab === 'approved'} onClick={() => setTab('approved')}>approved</button>
+    <AdminLayout title="Charge Requests">
+      <h1 className="text-2xl font-bold mb-4">Charge Requests</h1>
+      <div className="space-x-2 mb-4">
+        <button className="btn btn-secondary" disabled={tab === 'pending'} onClick={() => setTab('pending')}>pending</button>
+        <button className="btn btn-secondary" disabled={tab === 'approved'} onClick={() => setTab('approved')}>approved</button>
       </div>
-      <table border={1}>
-        <thead>
-          <tr><th>ID</th><th>Phone</th><th>Amount</th><th>Requested</th><th>Approved</th><th></th></tr>
+      <table className="table-auto w-full border border-collapse text-left">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="border px-4 py-2">ID</th>
+            <th className="border px-4 py-2">Phone</th>
+            <th className="border px-4 py-2">Amount</th>
+            <th className="border px-4 py-2">Requested</th>
+            <th className="border px-4 py-2">Approved</th>
+            <th className="border px-4 py-2"></th>
+          </tr>
         </thead>
         <tbody>
           {items.map(r => (
             <tr key={r.id}>
-              <td>{r.id}</td>
-              <td>{r.phone}</td>
-              <td>{r.amount}</td>
-              <td>{r.requested_at}</td>
-              <td>{r.approved_at}</td>
-              <td>{!r.approved && <button onClick={() => approve(r.id)}>Approve</button>}</td>
+              <td className="border px-4 py-2">{r.id}</td>
+              <td className="border px-4 py-2">{r.phone}</td>
+              <td className="border px-4 py-2">{r.amount}</td>
+              <td className="border px-4 py-2">{r.requested_at}</td>
+              <td className="border px-4 py-2">{r.approved_at}</td>
+              <td className="border px-4 py-2">{!r.approved && <button className="btn btn-secondary btn-sm" onClick={() => approve(r.id)}>Approve</button>}</td>
             </tr>
           ))}
         </tbody>
       </table>
-    </>
+    </AdminLayout>
   );
 }

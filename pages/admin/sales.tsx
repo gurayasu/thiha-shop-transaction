@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
-import Head from 'next/head';
+import AdminLayout from '../../components/AdminLayout';
 
-export default function Admin() {
+export default function SalesPage() {
   const [data, setData] = useState<Record<string, number>>({});
 
   useEffect(() => {
@@ -9,17 +9,24 @@ export default function Admin() {
   }, []);
 
   return (
-    <>
-      <Head><title>Sales Dashboard</title></Head>
-      <h1>Sales Dashboard</h1>
-      <table border={1}>
-        <thead><tr><th>Product ID</th><th>Quantity</th></tr></thead>
+    <AdminLayout title="Sales Dashboard">
+      <h1 className="text-2xl font-bold mb-4">Sales Dashboard</h1>
+      <table className="table-auto w-full border border-collapse text-left">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="border px-4 py-2">Product ID</th>
+            <th className="border px-4 py-2">Quantity</th>
+          </tr>
+        </thead>
         <tbody>
           {Object.entries(data).map(([id, qty]) => (
-            <tr key={id}><td>{id}</td><td>{qty}</td></tr>
+            <tr key={id}>
+              <td className="border px-4 py-2">{id}</td>
+              <td className="border px-4 py-2">{qty}</td>
+            </tr>
           ))}
         </tbody>
       </table>
-    </>
+    </AdminLayout>
   );
 }
