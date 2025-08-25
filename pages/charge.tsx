@@ -27,16 +27,31 @@ export default function Charge() {
   return (
     <>
       <Head><title>Charge Balance</title></Head>
-      <div className="form-card">
-        <h1>Charge Balance</h1>
-        <form onSubmit={submit} id="chargeForm">
-          <label htmlFor="phone">Phone Number</label>
-          <input id="phone" value={phone} onChange={e=>setPhone(e.target.value)} />
-          <label htmlFor="amount">Amount</label>
-          <input id="amount" type="number" value={amount} onChange={e=>setAmount(e.target.value)} />
-          <button type="submit">Charge Request</button>
+      <div className="mx-auto mt-4 max-w-md p-6 bg-white rounded shadow">
+        <h1 className="text-xl font-bold mb-4">Charge Balance</h1>
+        <form onSubmit={submit} id="chargeForm" className="space-y-4">
+          <div>
+            <label htmlFor="phone" className="block mb-1 text-base text-gray-900">Phone Number</label>
+            <input
+              id="phone"
+              value={phone}
+              onChange={e=>setPhone(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <div>
+            <label htmlFor="amount" className="block mb-1 text-base text-gray-900">Amount</label>
+            <input
+              id="amount"
+              type="number"
+              value={amount}
+              onChange={e=>setAmount(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+          <button type="submit" className="px-4 py-2 text-lg bg-blue-600 text-white rounded hover:bg-blue-700">Charge Request</button>
         </form>
-        <Link href="/">Back to Purchase</Link>
+        <Link href="/" className="block mt-4 text-blue-600 hover:underline">Back to Purchase</Link>
       </div>
     </>
   );
