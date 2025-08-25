@@ -65,17 +65,28 @@ export default function Home() {
       <Head>
         <title>Shop</title>
       </Head>
-      <div className="form-card">
-        <h1 className="form-title">Buy Products</h1>
-        <form onSubmit={handleSubmit} id="purchaseForm">
-          <div className="form-group">
-            <label htmlFor="phone">Phone Number</label>
-            <input type="tel" id="phone" value={phone} onChange={e=>setPhone(e.target.value)} onBlur={loadBalance} />
+      <div className="mx-auto mt-4 max-w-md p-6 bg-white rounded shadow">
+        <h1 className="text-xl font-bold mb-4">Buy Products</h1>
+        <form onSubmit={handleSubmit} id="purchaseForm" className="space-y-4">
+          <div>
+            <label htmlFor="phone" className="block mb-1 text-base text-gray-900">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={e=>setPhone(e.target.value)}
+              onBlur={loadBalance}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+            />
           </div>
-          <div className="form-group">Balance: ¥<span id="balance">{balance}</span></div>
+          <div>Balance: ¥<span id="balance">{balance}</span></div>
           {selections.map((sel, i) => (
-            <div className="form-group" key={i}>
-              <select className="product-select" value={sel} onChange={e=>changeSelection(i, e.target.value)}>
+            <div key={i}>
+              <select
+                value={sel}
+                onChange={e=>changeSelection(i, e.target.value)}
+                className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
+              >
                 <option value="">選択</option>
                 {products.map(p => (
                   <option key={p.product_id} value={p.product_id}>{p.name} ¥{p.price}</option>
@@ -83,13 +94,25 @@ export default function Home() {
               </select>
             </div>
           ))}
-          <button type="button" id="addProduct" className="add-btn" onClick={addProduct}>Add Product</button>
-          <div className={`form-group total${balance < total ? ' over' : ''}`}>
+          <button
+            type="button"
+            id="addProduct"
+            onClick={addProduct}
+            className="px-3 py-2 text-sm text-blue-600 border border-blue-600 rounded hover:bg-blue-50"
+          >
+            Add Product
+          </button>
+          <div className={`font-bold ${balance < total ? 'text-red-500' : ''}`}>
             Total: ¥<span id="total">{total}</span>
           </div>
-          <button type="submit">Purchase</button>
+          <button
+            type="submit"
+            className="px-4 py-2 text-lg bg-blue-600 text-white rounded hover:bg-blue-700"
+          >
+            Purchase
+          </button>
         </form>
-        <Link href="/charge">Money Charge</Link>
+        <Link href="/charge" className="block mt-4 text-blue-600 hover:underline">Money Charge</Link>
       </div>
     </>
   );
