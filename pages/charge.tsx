@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 
 export default function Charge() {
   const [phone, setPhone] = useState('');
@@ -33,6 +34,7 @@ export default function Charge() {
           <input id="amount" type="number" value={amount} onChange={e=>setAmount(e.target.value)} />
           <button type="submit">Charge</button>
         </form>
+        <Link href="/">Back to Purchase</Link>
       </div>
     </>
   );

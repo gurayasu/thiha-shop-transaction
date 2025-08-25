@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
 
 interface Product { product_id: string; name: string; price: number; }
 
@@ -30,6 +31,13 @@ export default function Home() {
     const data = await res.json();
     setBalance(data.balance);
   };
+
+  useEffect(() => {
+    loadBalance();
+    const handleFocus = () => loadBalance();
+    window.addEventListener('focus', handleFocus);
+    return () => window.removeEventListener('focus', handleFocus);
+  }, [phone]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,6 +89,7 @@ export default function Home() {
           </div>
           <button type="submit">Purchase</button>
         </form>
+        <Link href="/charge">Money Charge</Link>
       </div>
     </>
   );
